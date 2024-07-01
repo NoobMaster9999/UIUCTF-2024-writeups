@@ -26,7 +26,7 @@ When both the bits are the same, it's 0 and when both the bits are different, it
 
 # But the key is only 8 bytes?
 
-The key is only eight bytes but the flag is 48. how does that work? Because we are using cycle (and otherwise always), the key will be repeating.
+The key is only eight bytes but the flag is 48. how does that work? Because we are using the `cycle` function. However, almost always, even without using the `cycle` function, the smaller variable (key or text), will be repeating.
 
 If my 8 byte key is: "abcdefgh", and I XOR with 48 bytes, my new key will be "abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh". 
 
@@ -44,9 +44,9 @@ Note: C is the ciphertext
 
 # Known Plaintext Attack
 
-XOR is vulnerable to a known plaintext attack. As mentioned above, if I have part of "X" or "K", I can find part of the other one!
+XOR is vulnerable to a known plaintext attack.
 
-Let's say I know the first four bytes of X. Then, C XOR (first four bytes of X) = (fist four bytes of K) + random garbage!
+Let's say I know the first four bytes of X. Then, (First four bytes of C) XOR (first four bytes of X) = (first four bytes of K)!
 
 This is called a known plaintext attack! In our case, we know the first 7 bytes of the flag (`uiuctf{`) so we can find the first 7 bytes of the key!
 
@@ -68,10 +68,10 @@ The first 7 bytes of the key are: "hdiqbfj".
 
 # The Last Byte
 
-Just like we know the first 7 bytes of the flag, we also know the last byte of the flag: `}`. In our case, the key aligns perfectly with the flag so that the last character of the repeating key is the last character of the flag. As mentioned earlier, we can:
+Just like we know the first 7 bytes of the flag, we also know the last byte of the flag: `}`. In our case, the key aligns perfectly with the flag so that the last character of the repeating key is the last character of the flag. As mentioned earlier:
 
-(Last byte of flag) XOR (Last byte of key) = Last byte of key! Use the script above but instead of first 7 just use the last one.
+(Last byte of flag) XOR (Last byte of ciphertext) = Last byte of key! Use the script above but instead of the first 7 bytes, use only the last one.
 
-Our entire key is: "hdiqbfj". XOR the key with the ciphertext to get the flag!
+Our entire key is: "hdiqbfjq". XOR the key with the ciphertext to get the flag!
 
 # Flag - uiuctf{n0t_ju5t_th3_st4rt_but_4l50_th3_3nd!!!!!}
