@@ -34,25 +34,27 @@ So looking at this, we only need the 8 bytes!
 
 # How can we use this to our advantage?
 
-Well, XOR is reversible. This means that if A XOR B = C, then C XOR B = A and C XOR A = B.
+Well, XOR is reversible. 
 
-let's say the flag is "X" while the key is "K"
+let's say the flag is "X", the key is "K", and the ciphertext is "C". Then: 
 
-so X XOR K = C, then C XOR K = X and C XOR X = K!
-
-Note: C is the ciphertext
+```
+X XOR K = C
+C XOR K = X
+C XOR X = K
+```
 
 # Known Plaintext Attack
 
 XOR is vulnerable to a known plaintext attack.
 
-Let's say I know the first four bytes of X. Then, (First four bytes of C) XOR (first four bytes of X) = (first four bytes of K)!
+Let's say I know the first four bytes of X. Then, (First four bytes of C) XOR (first four bytes of X) = (first four bytes of K)
 
 This is called a known plaintext attack! In our case, we know the first 7 bytes of the flag (`uiuctf{`) so we can find the first 7 bytes of the key!
 
-# But the key is 8 bytes?
+# The first 7 bytes
 
-The key, in our case, is 8 bytes. We'll talk about that later. Let's first find the first 7 bytes of the key. XOR the first 7 bytes of the ciphertext with `uiuctf{`. Let's use Python!
+Let's find the first 7 bytes of the key. XOR the first 7 bytes of the ciphertext with `uiuctf{`. Let's use Python!
 
 ```python
 ct = open("ct","rb").read()[:7] # First 7 bytes
@@ -70,7 +72,7 @@ The first 7 bytes of the key are: "hdiqbfj".
 
 Just like we know the first 7 bytes of the flag, we also know the last byte of the flag: `}`. In our case, the key aligns perfectly with the flag so that the last character of the repeating key is the last character of the flag. As mentioned earlier:
 
-(Last byte of flag) XOR (Last byte of ciphertext) = Last byte of key! Use the script above but instead of the first 7 bytes, use only the last one.
+(Last byte of flag) XOR (Last byte of ciphertext) = Last byte of key Use the script above but instead of the first 7 bytes, use only the last one.
 
 Our entire key is: "hdiqbfjq". XOR the key with the ciphertext to get the flag!
 
