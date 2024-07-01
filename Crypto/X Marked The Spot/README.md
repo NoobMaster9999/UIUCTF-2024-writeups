@@ -13,7 +13,7 @@
 
 # Intro
 
-Looking at `public.py`, the flag's length is 48 while the key's length is 8. The code is doing a simple XOR. Let's take a look at how XOR works again: 
+Looking at `public.py`, the flag's length is 48 bytes while the key's length is 8 bytes. The code is doing a simple XOR. Let's take a look at how XOR works: 
 
 | A | B | A XOR B |
 |---|---|---------|
@@ -26,7 +26,7 @@ When both the bits are the same, it's 0 and when both the bits are different, it
 
 # But the key is only 8 bytes?
 
-The key is only eight bytes but the flag is 48. how does that work? Because we are using the `cycle` function. However, almost always, even without using the `cycle` function, the smaller variable (key or text), will be repeating.
+The key is only eight bytes but the flag is 48. how does that work? In XOR, the smaller variable (key or text), will be repeating.
 
 If my 8 byte key is: "abcdefgh", and I XOR with 48 bytes, my new key will be "abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh". 
 
