@@ -1,4 +1,4 @@
-# X Marked the Spot
+# Without a Trace
 
 - Description: Gone with the wind, can you find my flag? ncat --ssl without-a-trace.chal.uiuc.tf 1337
 
