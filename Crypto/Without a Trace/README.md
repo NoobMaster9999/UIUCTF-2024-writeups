@@ -12,9 +12,9 @@
 
 We are provided with a `server.py` and a remote connection. Let's analyze the source.
 
-# Analyzing
+# Analysis
 
-The function main is as follows:
+The main function is as follows:
 
 ```python
 def main():
@@ -76,11 +76,21 @@ F = [
 ]
 
 ```
-Here the numbers are the flag split in 5 parts, represented as integers. It then uses numpy's matrix multiplication and trace to generate "res".
+Here the numbers are the flag split into 5 parts, represented as integers. It then uses numpy's matrix multiplication and trace to generate "res".
 
 # Trial-and-error
 
-I make a flag on my own: `uiuctf{flag}` I give 1 as input for each one. Looking at "res", It is actually the flag parts added together! The flag matrix on the local flag is:
+I make a flag on my own: `uiuctf{flag}` I give `1` as input for the M matrix. It looks like:
+```
+M = [
+  [1,0,0,0,0],
+  [0,1,0,0,0],
+  [0,0,1,0,0],
+  [0,0,0,1,0],
+  [0,0,0,0,1]
+]
+```
+Looking at "res", It is actually the flag parts added together! The flag matrix on the local flag is:
 ```
 F= [
 [504280474484, 0, 0, 0, 0],
@@ -92,7 +102,17 @@ F= [
 ```
 Adding the three numbers together gives me "res"! Let's try again, but a little differently
 
-Give `2` for the first one and `1` for the rest. The output is 1448717949638. It's the same as `2*504280474484 + 440156974177 + 26493` (from the above flag matrix)! 
+For the 5 inputs for the M matrix, give `2` for the first one and `1` for the rest. The M matrix looks like:
+```
+M = [
+  [2,0,0,0,0],
+  [0,1,0,0,0],
+  [0,0,1,0,0],
+  [0,0,0,1,0],
+  [0,0,0,0,1]
+]
+```
+The output is 1448717949638. It's the same as `2*504280474484 + 440156974177 + 26493` (from the above flag matrix)! 
 
 # Solve
 
