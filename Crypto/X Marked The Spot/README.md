@@ -48,7 +48,7 @@ C XOR X = K
 
 XOR is vulnerable to a known plaintext attack.
 
-Let's say I know the first four bytes of X. Then, (First four bytes of C) XOR (first four bytes of X) = (first four bytes of K)
+Let's say I know the first four bytes of X. Then, `(First four bytes of C) XOR (first four bytes of X) = (first four bytes of K)`
 
 This is called a known plaintext attack! In our case, we know the first 7 bytes of the flag (`uiuctf{`) so we can find the first 7 bytes of the key!
 
