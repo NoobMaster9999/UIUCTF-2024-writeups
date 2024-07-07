@@ -17,7 +17,7 @@ Looking at the source code, it's a basic implementation of Schnorr signatures. L
 
 # Analysis
 
-These 3 are the most important functions in the code:
+These 4 are the most important functions in the code:
 
 ```python
 def snore_gen(p, q, g, N=512):
@@ -42,6 +42,41 @@ def snore_verify(p, q, g, y, m, s, e):
     ev = hash((rv + m) % p) % q
 
     return ev == e
+
+def main():
+    p, q, g = gen_snore_group()
+    print(f"p = {p}")
+    print(f"q = {q}")
+    print(f"g = {g}")
+
+    queries = []
+    for _ in range(10):
+        x, y = snore_gen(p, q, g)
+        print(f"y = {y}")
+
+        print('you get one query to the oracle')
+
+        m = int(input("m = "))
+        queries.append(m)
+        s, e = snore_sign(p, q, g, x, m)
+        print(f"s = {s}")
+        print(f"e = {e}")
+
+        print('can you forge a signature?')
+        m = int(input("m = "))
+        s = int(input("s = "))
+        # you can't change e >:)
+        if m in queries:
+            print('nope')
+            return
+        if not snore_verify(p, q, g, y, m, s, e):
+            print('invalid signature!')
+            return
+        queries.append(m)
+        print('correct signature!')
+
+    print('you win!')
+    print(open('flag.txt').read())
 ```
 
 Note: The hash function is also provided in the code, but it is not important as we cannot exploit it.
