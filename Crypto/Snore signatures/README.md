@@ -65,7 +65,7 @@ For any integer m, This statment holds true:
 
 `hash((rv+m)%p) = hash((rv+m+p)%p)`
 
-We can now easily verify! We just need to do this 10 times! There is a problem though. We can't use the same `m` everytime to verify. But we can give zero the first time, one the second time and so on! All we have to do is add `p` to `m` for the exploit to work.
+We can now easily verify! We just need to do this 10 times! There is a problem though. We can't use the same `m` everytime to verify. But we can give one the first time, two the second time, and so on! All we have to do is add `p` to `m` for the exploit to work.
 
 # Script
 
