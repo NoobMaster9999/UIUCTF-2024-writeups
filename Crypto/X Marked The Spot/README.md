@@ -57,12 +57,13 @@ This is called a known plaintext attack! In our case, we know the first 7 bytes 
 Let's find the first 7 bytes of the key. XOR the first 7 bytes of the ciphertext with `uiuctf{`. Let's use Python!
 
 ```python
+from itertools import cycle
 ct = open("ct","rb").read()[:7] # First 7 bytes
 known=b"uiuctf{"
 
 first_7_bytes = bytes(x ^ y for x, y in zip(known, cycle(ct))) # Provided in `public.py`
 
-print(first_7_bytes)
+print(first_7_bytes) # First 7 bytes of the key
 
 ```
 
@@ -70,10 +71,31 @@ The first 7 bytes of the key are: "hdiqbfj".
 
 # The Last Byte
 
-Just like we know the first 7 bytes of the flag, we also know the last byte of the flag: `}`. In our case, the key aligns perfectly with the flag so that the last character of the repeating key is the last character of the flag. As mentioned earlier:
+Just like we know the first 7 bytes of the flag, we also know the last byte of the flag: `}`. In our case, the key aligns perfectly with the flag so that the last character of the repeating key is the last character of the flag. Note:
 
-(Last byte of flag) XOR (Last byte of ciphertext) = Last byte of key Use the script above but instead of the first 7 bytes, use only the last one.
+`(Last byte of flag) XOR (Last byte of ciphertext) = Last byte of key`
+
+Use the script above but instead of the first 7 bytes, use only the last one.
 
 Our entire key is: "hdiqbfjq". XOR the key with the ciphertext to get the flag!
+
+Final script:
+
+```python
+from itertools import cycle
+ct = open("ct","rb").read()
+first_7_ct = ct[:7] # First 7 bytes of the ciphertext
+known=b"uiuctf{" # First 7 bytes of the flag
+
+first_7_bytes = bytes(x ^ y for x, y in zip(known, cycle(first_7_ct))) # Provided in `public.py`
+
+last = chr(ct[-1]).encode() # Last byte of the ciphertext
+last_known = b"}" # Last byte of the flag
+last_byte = bytes(x ^ y for x, y in zip(last_known, cycle(last))) # Last byte of the key
+
+key = first_7_bytes + last_byte # Entire key
+flag = bytes(x ^ y for x, y in zip(ct, cycle(key)))
+print(flag) # Flag!
+```
 
 # Flag - uiuctf{n0t_ju5t_th3_st4rt_but_4l50_th3_3nd!!!!!}
