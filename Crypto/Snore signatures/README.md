@@ -6,6 +6,7 @@ ncat --ssl snore-signatures.chal.uiuc.tf 1337
 
 <details>
   <summary>Attachments</summary>
+	
   [chal.py](https://uiuctf-2024-rctf-challenge-uploads.storage.googleapis.com/uploads/b477a42de9e90bafc5bd16405fee97b4b532d9b96e25330eb55ae1c2aa45e4f0/chal.py)
 </details>
 
