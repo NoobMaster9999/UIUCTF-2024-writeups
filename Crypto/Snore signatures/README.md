@@ -81,11 +81,11 @@ def main():
 
 Note: The hash function is also provided in the code, but it is not important as we cannot exploit it.
 
-The code generates the basic values and then provides us with p,q,g,y,s,e. It takes one `m` and signs it for us. Afterward, it tells us to forge a signature on our own, taking `m` and `s` as our input. However, we can't use the `m` we provided earlier. It calls snore_verify() to verify our signature. If it's true, it continues and does this for 10 times. Afterward, it gives us the flag.
+The code generates the basic values and then provides us with p,q,g,y. It takes one `m` and signs it for us and provides us with s,e. Afterward, it tells us to forge a signature on our own, taking `m` and `s` as our input. However, we can't use the `m` we provided earlier. It calls snore_verify() to verify our signature. If it's true, it continues and does this for 10 times. Afterward, it gives us the flag.
 
 # Vulnerability
 
-Looking at snore_verify, we can control `m` and `s`. If you look carefully, the `% p` is inside the hash function argument. We can use this to our advantage! Let's do a simple example: `(rv + 0) % p == rv % p` And `(rv + p) % p == rv % p`. `(x+p) % p` will always return `x`! In the actual implementation of Schnorr signatures, it uses concatenation and not addition!
+Looking at snore_verify, we can control `m` and `s`. If you look carefully, the `% p` is inside the hash function argument. We can use this to our advantage! Let's do a simple example: `(rv + 0) % p == rv % p` And `(rv + p) % p == rv % p`. `(x+p) % p` will always return `x`. In the actual implementation of Schnorr signatures, it uses concatenation and not addition!
 
 # Solve
 
